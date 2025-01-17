@@ -64,8 +64,8 @@ module.exports.loginCaptain=async(req,res,next)=>{
 }
 
 module.exports.logoutCaptain=async(req,res,next)=>{
-    res.clearCookie('token');
     const token=req.headers.authorization?.split(' ')[1] || req.cookies.token;
+    res.clearCookie('token');
     await blacklistTokenModel.create({token});
     res.status(200).json({msg:'Logged out successfully'});
 }
@@ -73,5 +73,5 @@ module.exports.logoutCaptain=async(req,res,next)=>{
 
 
 module.exports.getCaptainProfile=async(req,res,next)=>{
-    res.status(200).json({captain:req.captain});
+    res.status(200).json(req.captain);
 }
